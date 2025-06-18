@@ -1,18 +1,19 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
-import Signup from "./Signup";
-
-    
 
 function Homepage() {
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("loggedIn");
+        navigate("/login");
+    };
 
     return (
         <div>
             <h1>Welcome to the Homepage</h1>
-            <div >
+            <button onClick={handleLogout}>Logout</button>
+            <div>
                 <div>
                     <h2>Group A Activities</h2>
                     <ul>
@@ -33,4 +34,5 @@ function Homepage() {
         </div>
     );
 }
+
 export default Homepage;
