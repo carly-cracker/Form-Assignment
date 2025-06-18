@@ -1,0 +1,99 @@
+/* App.css */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f9fb;
+    color: #222;
+}
+
+header {
+    background: #2d6cdf;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    color: #2d6cdf;
+    margin-top: 0;
+}
+
+button {
+    background: #2d6cdf;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #1a4fa0;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #cfd8dc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.success {
+    color: #388e3c;
+    background: #e8f5e9;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.header {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+
+@media (max-width: 600px) {
+    main {
+        padding: 1rem;
+    }
+    header {
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+}
