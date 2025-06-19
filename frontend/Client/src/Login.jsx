@@ -1,57 +1,70 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const Navigate = useNavigate();  
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+            password: "",
+        },
+        validationSchema: Yup.object({
+            username: Yup.string().required("Username is required"),
+            password: Yup.string().required("Password is required"),
+        }),
+        onSubmit: async (values) => {
+            const response = await fetch("http://localhost:5555/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values),
+            });
 
-        const response = await fetch("http://localhost:5555/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        });
+            const data = await response.json();
 
-        const data = await response.json();
-
-        if (response.ok) {
-            localStorage.setItem("loggedIn", "true");
-            Navigate("/homepage");
-        } else {
-            alert(data.message || "Login failed");
-        }
-    };
+            if (response.ok) {
+                localStorage.setItem("loggedIn", "true");
+                navigate("/homepage");
+            } else {
+                alert(data.message || "Login failed");
+            }
+        },
+    });
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <h2>Login</h2>
             <input
                 name="username"
-                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
+                onChange={formik.handleChange}
+                value={formik.values.username}
             />
+            {formik.errors.username && <p>{formik.errors.username}</p>}
+
             <input
                 name="password"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
             />
+            {formik.errors.password && <p>{formik.errors.password}</p>}
+
             <button type="submit">Login</button>
+
+            <p>
+                New user?{" "}
+                <span
+                    style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
+                    onClick={() => navigate("/signup")}
+                >
+                    Signup
+                </span>
+            </p>
         </form>
-        <p>
-            New user?{" "}
-            <span
-                style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
-                onClick={() => Navigate("/signup")}
-            >
-                Sign up
-            </span>
-        </p>
-        </>
     );
 }
 
